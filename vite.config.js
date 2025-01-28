@@ -9,4 +9,8 @@ export default defineConfig({
     host: true,
     port: 3000,
   },
+  define: {
+    // Add environment variables here if needed for custom usage
+    'process.env': process.env,
+  },
 });

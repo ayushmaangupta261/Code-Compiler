@@ -24,7 +24,7 @@ const generateAccessAndRefereshTokens = async (userId) => {
 
 // Function to register the user
 const registerUser = async (req, res, next) => {
-  // console.log("Request body -> ",req);
+  console.log("Request body -> ",req.body);
 
   try {
     // Extract user details from the frontend
@@ -51,31 +51,31 @@ const registerUser = async (req, res, next) => {
     }
 
     // Validate avatar file
-    const avatarLocalPath = req.files?.avatar?.[0]?.path;
-    // console.log("avatar local path: ", avatarLocalPath);
+    // const avatarLocalPath = req.files?.avatar?.[0]?.path;
+    // // console.log("avatar local path: ", avatarLocalPath);
 
-    if (!avatarLocalPath) {
-      return res.status(400).json({
-        message: "Avatar file is required",
-        success: false,
-      });
-    }
+    // if (!avatarLocalPath) {
+    //   return res.status(400).json({
+    //     message: "Avatar file is required",
+    //     success: false,
+    //   });
+    // }
 
-    // Upload avatar to Cloudinary
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    // console.log("Avatar -> ", avatar);
+    // // Upload avatar to Cloudinary
+    // const avatar = await uploadOnCloudinary(avatarLocalPath);
+    // // console.log("Avatar -> ", avatar);
 
-    if (!avatar) {
-      return res.status(500).json({
-        message: "Failed to upload avatar",
-        success: false,
-      });
-    }
+    // if (!avatar) {
+    //   return res.status(500).json({
+    //     message: "Failed to upload avatar",
+    //     success: false,
+    //   });
+    // }
 
     // Create user object in the database
     const user = await User.create({
       fullName,
-      avatar: avatar.url,
+      // avatar: avatar.url,
       email,
       password,
       userName: userName.toLowerCase(),

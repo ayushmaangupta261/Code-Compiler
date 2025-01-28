@@ -1,11 +1,16 @@
+import SignUp from "./components/Auth/SignUp"
+import Navbar from "./components/Navbar/Navbar"
+
+
 
 function App() {
 
 
   return (
     <div>
-      <p className='text-4xl text-center '>Hello World</p>
-    
+      <Navbar />
+      <SignUp />
+
     </div>
   )
 }
