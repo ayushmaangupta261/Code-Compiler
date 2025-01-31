@@ -6,54 +6,100 @@ import google from "../../assets/Auth/google.png";
 import github from "../../assets/Auth/github.png";
 import { registerUser } from "../../services/operations/authApi";
 
-const SignUp = () => {
+const SignUp = ({ toggleLogInForm }) => {
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const dispatch = useDispatch();
 
-    const userNameValue = useWatch({ control, name: "userName" });
+    // Watching account type value
+    const accountType = useWatch({ control, name: "accountType", defaultValue: "Student" });
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-
-    const toggleConfirmPasswordVisibility = () => {
-        setShowConfirmPassword(!showConfirmPassword);
-    };
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
     const submitForm = (data) => {
-        console.log(data);
-        // Dispatch the form data excluding confirmPassword
+        // console.log(data);
         const { confirmPassword, ...userData } = data;
-        dispatch(registerUser(userData)); // Dispatch only the required data
+        dispatch(registerUser(userData));
     };
 
+
     return (
-        <div className="flex">
-            {/* left */}
+        <div className="flex justify-start h-[40rem] w-[25rem] py-3 px-3 ml-5 ">
             <div className="flex flex-col">
-                <div>
-                    <p>Logo</p>
-                    <p>Welcome Back !!!</p>
-                    <p>Log IN</p>
+                <div className="flex flex-col">
+                    <p className="">Hey There !!!</p>
+                    <p className="text-4xl  font-semibold">Sign Up</p>
                 </div>
 
-                {/* form */}
-                <div>
-                    <form onSubmit={handleSubmit(submitForm)}>
-                        {/* Full Name */}
-                        <div>
-                            <label>Full Name:</label>
-                            <input
-                                type="text"
-                                {...register("fullName", { required: true })}
-                            />
-                            {errors.fullName && <p>Full Name is required</p>}
+                {/* Form */}
+                <div className="flex flex-col gap-y-2 mt-7">
+                    <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-y-3">
+
+                        {/* Student-Instructor Selection */}
+                        <div className="flex flex-col">
+                            <div>
+                                <p>Account Type:</p>
+                            </div>
+                            <div className="flex justify-between px-1 py-1 rounded-xl md:rounded-full bg-richblack-800 w-[20rem]">
+
+                                <label className={`cursor-pointer px-3 py-2 rounded-xl border   md:rounded-full transition-all duration-200 hover:scale-105 
+                                ${accountType === "Student" ? "bg-blue-300 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
+                                    <input
+                                        type="radio"
+                                        value="Student"
+                                        {...register("accountType")}
+                                        className="hidden "
+                                    />
+                                    Student
+                                </label>
+                                <label className={`cursor-pointer px-3 py-2 rounded-xl md:rounded-full border transition-all duration-200 hover:scale-105 
+                                ${accountType === "Instructor" ? "bg-blue-300 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
+                                    <input
+                                        type="radio"
+                                        value="Instructor"
+                                        {...register("accountType")}
+                                        className="hidden"
+                                    />
+                                    Instructor
+                                </label>
+                                <label className={`cursor-pointer px-3 py-2 rounded-xl border   md:rounded-full transition-all duration-200 hover:scale-105 
+                                ${accountType === "Institute" ? "bg-blue-300 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
+                                    <input
+                                        type="radio"
+                                        value="Institute"
+                                        {...register("accountType")}
+                                        className="hidden "
+                                    />
+                                    Institute
+                                </label>
+                            </div>
                         </div>
 
+                        {/* Full Name */}
+                        <div className="flex flex-col">
+                            <label>
+                                {accountType === "Institute" ? "Name of Institute:" : "Full Name:"}
+                            </label>
+                            <div className="relative w-[20rem]">
+                                <input
+                                    type="text"
+                                    {...register("fullName", { required: true })}
+                                    className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 hover:scale-105 duration-200 
+                                     ${errors.fullName ? "border-red-500" : ""}`}
+                                />
+                                {errors.fullName && (
+                                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-500 text-sm">
+                                        Full Name is required
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+
                         {/* Email */}
-                        <div>
+                        <div className="flex flex-col">
                             <label>Email:</label>
                             <input
                                 type="email"
@@ -64,102 +110,86 @@ const SignUp = () => {
                                         message: "Invalid email address",
                                     },
                                 })}
-                            />
-                            {errors.email && (
-                                <p style={{ color: "red" }}>{errors.email.message}</p>
-                            )}
-                        </div>
-
-                        {/* User Name */}
-                        <div>
-                            <label>User Name:</label>
-                            <input
-                                type="text"
-                                {...register("userName", {
-                                    required: "User Name is required",
-                                    pattern: {
-                                        value: /^[a-z0-9@_]+$/,
-                                        message:
-                                            "Only lowercase letters, numbers, '@', and '_' are allowed",
-                                    },
-                                })}
-                            />
-                            {/* Real-time error message */}
-                            {userNameValue &&
-                                !/^[a-z0-9@_]+$/.test(userNameValue) && (
-                                    <p style={{ color: "red" }}>
-                                        Only lowercase letters, numbers, '@', and '_' are allowed
-                                    </p>
-                                )}
-                            {errors.userName && !userNameValue && (
-                                <p style={{ color: "red" }}>{errors.userName.message}</p>
-                            )}
+                                className="bg-blue-100 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200" />
+                            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                         </div>
 
                         {/* Password */}
-                        <div>
+                        <div className="flex flex-col">
                             <label>Password:</label>
-
-                            <div className="flex items-center">
+                            <div className="relative w-[20rem]">
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    {...register("password", { required: true })}
+                                    {...register("password", { required: "Password is required" })}
+                                    className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
+                ${errors.password ? "border-red-500" : ""}`}
                                 />
                                 <button
                                     type="button"
                                     onClick={togglePasswordVisibility}
-                                    className="ml-2"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 h-[1.8rem] w-[1.8rem] flex justify-center items-center"
                                 >
                                     {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                                 </button>
+                                {errors.password && (
+                                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-500 text-sm">
+                                        {errors.password.message}
+                                    </span>
+                                )}
                             </div>
-
-                            {errors.password && <p>Password is required</p>}
                         </div>
 
-                        {/* Confirm Password */}
-                        <div>
-                            <label>Confirm Password:</label>
 
-                            <div className="flex items-center">
+
+                        {/* Confirm Password */}
+                        <div className="flex flex-col">
+                            <label>Confirm Password:</label>
+                            <div className="relative w-[20rem]">
                                 <input
                                     type={showConfirmPassword ? "text" : "password"}
-                                    {...register("confirmPassword", { required: true })}
+                                    {...register("confirmPassword", { required: "Confirm Password is required" })}
+                                    className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
+                ${errors.confirmPassword ? "border-red-500" : ""}`}
                                 />
                                 <button
                                     type="button"
                                     onClick={toggleConfirmPasswordVisibility}
-                                    className="ml-2"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 h-[1.8rem] w-[1.8rem] flex justify-center items-center"
                                 >
                                     {showConfirmPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                                 </button>
+                                {errors.confirmPassword && (
+                                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-500 text-sm">
+                                        {errors.confirmPassword.message}
+                                    </span>
+                                )}
                             </div>
-                            {errors.confirmPassword && <p>Confirm Password is required</p>}
                         </div>
 
-                        {/* Button */}
-                        <div>
-                            <button type="submit">SignUp</button>
+
+                        {/* Submit Button */}
+                        <div className="flex mt-2 justify-center w-[20rem]">
+                            <button type="submit" className="bg-amber-200 px-2 py-2 rounded-[5rem] w-[8rem] hover:scale-95 duration-200 cursor-pointer">SignUp</button>
                         </div>
                     </form>
                 </div>
 
-                {/* oauth section */}
-                <div>
-                    <div>
-                        <p>
-                            or <span>SignUp with</span>
-                        </p>
+                {/* OAuth Section */}
+                <div className="flex flex-col w-[20rem] mt-2 items-center justify-center gap-y-3">
+                    <p className="text-sm">
+                        or <span className="text-blue-400 select-none">SignUp with</span>
+                    </p>
+                    <div className="flex items-center justify-between gap-x-10">
+                        <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
+                            <img src={google} alt="Google" className="w-[30%]" />
+                        </button>
+                        <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
+                            <img src={github} alt="GitHub" className="w-[30%]" />
+                        </button>
                     </div>
-                    <div>
-                        <img src={google} alt="" className="w-[5%]" />
-                        <img src={github} alt="" className="w-[5%]" />
-                    </div>
-                    <div>
-                        <p>
-                            Have an account ? <span>LogIn</span>
-                        </p>
-                    </div>
+                    <p className="text-sm">
+                        Already have an account? <button className="text-pink-500 hover:scale-95 duration-200 cursor-pointer" onClick={toggleLogInForm}>LogIn</button>
+                    </p>
                 </div>
             </div>
         </div>

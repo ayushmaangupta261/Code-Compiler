@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = Schema(
   {
@@ -29,6 +29,11 @@ const userSchema = Schema(
     avatar: {
       type: String, // Cloudinary Url
     },
+    accountType: {
+      type: String,
+      enum: ["Institute", "Student", "Instructor"],
+      required: true,
+    },
     refrshToken: {
       type: String,
       default: null,
@@ -39,23 +44,18 @@ const userSchema = Schema(
   }
 );
 
-
 // pre method to encrypt the password
 userSchema.pre("save", async function (next) {
-
   if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
   next();
-
 });
-
 
 // Method to check password is correct or not
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
-
 
 // Method to generate access token
 userSchema.methods.generateAccessToken = function () {
@@ -73,7 +73,6 @@ userSchema.methods.generateAccessToken = function () {
   );
 };
 
-
 // Method to generate refresh token
 userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
@@ -86,6 +85,5 @@ userSchema.methods.generateRefreshToken = function () {
     }
   );
 };
-
 
 export const User = mongoose.model("User", userSchema);

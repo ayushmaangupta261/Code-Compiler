@@ -24,14 +24,18 @@ const generateAccessAndRefereshTokens = async (userId) => {
 
 // Function to register the user
 const registerUser = async (req, res, next) => {
-  console.log("Request body -> ",req.body);
+  console.log("Request body -> ", req.body);
 
   try {
     // Extract user details from the frontend
-    const { fullName, email, userName, password } = req.body;
+    const { fullName, email, userName, password, accountType } = req.body;
 
     // Validate required fields
-    if ([fullName, email, userName, password].some((field) => !field?.trim())) {
+    if (
+      [fullName, email, userName, password, accountType].some(
+        (field) => !field?.trim()
+      )
+    ) {
       return res.status(400).json({
         message: "All fields are required",
         success: false,
@@ -78,6 +82,7 @@ const registerUser = async (req, res, next) => {
       // avatar: avatar.url,
       email,
       password,
+      accountType,
       userName: userName.toLowerCase(),
     });
 
@@ -109,69 +114,65 @@ const registerUser = async (req, res, next) => {
 };
 
 // Function to login the user
-// const loginUser = asyncHandler(async (req, res) => {
-//   // req body -> data
-//   // userName or email
-//   //find the user
-//   //password check
-//   //access and referesh token
-//   //send cookie
+const loginUser = async (req, res) => {
+  // req body -> data
+  // userName or email
+  //find the user
+  //password check
+  //access and referesh token
+  //send cookie
 
-//   const { email, userName, password } = req.body;
-//   console.log(email);
+  const { email, password } = req.body;
+  console.log(email);
 
-//   if (!userName && !email) {
-//     throw new ApiError(400, "userName or email is required");
-//   }
+  if (!password && !email) {
+    return res.status(401).json({
+      message: "All credentials are required",
+      success: false,
+    });
+  }
 
-//   // Here is an alternative of above code based on logic discussed in video:
-//   // if (!(userName || email)) {
-//   //     throw new ApiError(400, "userName or email is required")
+  const user = await User.findOne({
+    email,
+  });
 
-//   // }
+  if (!user) {
+    return res.status(401).json({
+      message: "Invalid email, user doesn't exists",
+      success: false,
+    });
+  }
 
-//   const user = await User.findOne({
-//     $or: [{ userName }, { email }],
-//   });
+  const isPasswordValid = await user.isPasswordCorrect(password);
 
-//   if (!user) {
-//     throw new ApiError(404, "User does not exist");
-//   }
+  if (!isPasswordValid) {
+    return res.status(401).json({
+      message: "Invalid password, please check your password",
+      success: false,
+    });
+  }
 
-//   const isPasswordValid = await user.isPasswordCorrect(password);
+  const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
+    user._id
+  );
 
-//   if (!isPasswordValid) {
-//     throw new ApiError(401, "Invalid user credentials");
-//   }
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
 
-//   const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
-//     user._id
-//   );
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
 
-//   const loggedInUser = await User.findById(user._id).select(
-//     "-password -refreshToken"
-//   );
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json({
+      user: loggedInUser,
+      success: true,
+    });
+};
 
-//   const options = {
-//     httpOnly: true,
-//     secure: true,
-//   };
-
-//   return res
-//     .status(200)
-//     .cookie("accessToken", accessToken, options)
-//     .cookie("refreshToken", refreshToken, options)
-//     .json(
-//       new ApiResponse(
-//         200,
-//         {
-//           user: loggedInUser,
-//           accessToken,
-//           refreshToken,
-//         },
-//         "User logged In Successfully"
-//       )
-//     );
-// });
-
-export { registerUser };
+export { registerUser, loginUser };
