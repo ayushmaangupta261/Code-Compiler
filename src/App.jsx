@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { setModal } from "./redux/slices/authSlice"
 import Home from "./pages/Home"
-
+import { Outlet } from "react-router-dom"
 
 
 
@@ -25,7 +25,7 @@ function App() {
 
   return (
 
-    <div ref={modalRef} onClick={closeModal} className="h-[100vh] relative bg-[#13161B] ">
+    <div ref={modalRef} onClick={closeModal} className="h-[100%] pb-[10rem] relative bg-[#121212] ">
 
       <div className="fixed top-0 w-full z-10   ">
         <Navbar />
@@ -35,9 +35,9 @@ function App() {
         <Template />
       </div>)}
 
-   
-        <Home />
-    
+
+      <Outlet />
+
 
     </div>
   )
