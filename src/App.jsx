@@ -25,7 +25,7 @@ function App() {
 
   return (
 
-    <div ref={modalRef} onClick={closeModal} className="h-[100%] pb-[10rem] relative bg-[#121212] ">
+    <div ref={modalRef} onClick={closeModal} className=" relative bg-[#121212] ">
 
       <div className="fixed top-0 w-full z-10   ">
         <Navbar />

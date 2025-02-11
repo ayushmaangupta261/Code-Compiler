@@ -6,6 +6,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store/index.js'
 import Home from './pages/Home.jsx'
+import EditorPage from './pages/EditorPage.jsx'
+import CreateAndJoinPage from './pages/CreateAndJoinPage.jsx'
+import { Toaster } from 'react-hot-toast'
 
 
 const router = createBrowserRouter([
@@ -17,7 +20,14 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-
+      {
+        path: "/create-and-join",
+        element: <CreateAndJoinPage />
+      },
+      {
+        path: "/editor/:roomId",
+        element: <EditorPage />
+      }
     ],
   },
 ])
@@ -25,11 +35,19 @@ const router = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+
     <Provider store={store}>
 
       <RouterProvider router={router} />
-
+      <Toaster position="top-right" reverseOrder={false} toastOptions={
+        {
+          success: {
+            theme: {
+              primary: "green-400"
+            }
+          }
+        }
+      } />
     </Provider>
-  </StrictMode>,
+
 )
