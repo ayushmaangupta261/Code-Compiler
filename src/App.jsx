@@ -25,18 +25,15 @@ function App() {
 
   return (
 
-    <div ref={modalRef} onClick={closeModal} className=" relative bg-[#121212] ">
+    <div ref={modalRef} onClick={closeModal} className="  bg-[#121212] ">
 
       <div className="fixed top-0 w-full z-10   ">
         <Navbar />
       </div>
 
-      {modal && (<div className=" absolute w-[60%] z-10 left-1/2 top-10 transform -translate-x-1/2 backdrop-blur-2xl bg-opacity-40  ">
-        <Template />
-      </div>)}
-
-
-      <Outlet />
+      <div className="text-gray-100 flex w-full gap-x-3 mt-[4.5rem] pb-2">
+        <Outlet />
+      </div>
 
 
     </div>

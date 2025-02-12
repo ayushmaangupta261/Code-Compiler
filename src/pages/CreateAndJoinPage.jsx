@@ -48,7 +48,7 @@ const CreateAndJoinPage = () => {
 
 
     return (
-        <div className='CreateAndJoinPageWrapper flex items-center justify-center text-gray-100 h-[100vh] w-[100vw]'>
+        <div className='CreateAndJoinPageWrapper flex items-center justify-center text-gray-100 h-screen w-[100vw]'>
 
             <div className='formWapper bg-[#282a36] px-5 py-5 rounded-md w-[400px] max-w-[90%]'>
                 {/* <p className='text-3xl text-green-400'>Code-Sync</p> */}

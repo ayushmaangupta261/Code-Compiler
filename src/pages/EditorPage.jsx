@@ -114,7 +114,7 @@ const EditorPage = () => {
     }
 
     return (
-        <div className='mainwrap text-gray-100 flex h-[41.6rem] w-full gap-x-3 mt-[4.5rem] overflow-hidden pb-2'>
+        <div className='mainwrap text-gray-100 flex h-[41.6rem] w-full gap-x-3  overflow-hidden pb-2'>
 
             <div className="aside flex flex-col justify-between bg-gray-700 py-5 px-5 rounded-br-2xl rounded-tr-2xl w-[18rem]">
 

@@ -45,7 +45,7 @@ const SignUp = ({ toggleLogInForm }) => {
                             <div className="flex justify-between px-1 py-1 rounded-xl md:rounded-full bg-richblack-800 w-[20rem]">
 
                                 <label className={`cursor-pointer px-3 py-2 rounded-xl border   md:rounded-full transition-all duration-200 hover:scale-105 
-                                ${accountType === "Student" ? "bg-blue-300 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
+                                ${accountType === "Student" ? "bg-blue-400 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
                                     <input
                                         type="radio"
                                         value="Student"
@@ -55,7 +55,7 @@ const SignUp = ({ toggleLogInForm }) => {
                                     Student
                                 </label>
                                 <label className={`cursor-pointer px-3 py-2 rounded-xl md:rounded-full border transition-all duration-200 hover:scale-105 
-                                ${accountType === "Instructor" ? "bg-blue-300 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
+                                ${accountType === "Instructor" ? "bg-blue-400 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
                                     <input
                                         type="radio"
                                         value="Instructor"
@@ -65,7 +65,7 @@ const SignUp = ({ toggleLogInForm }) => {
                                     Instructor
                                 </label>
                                 <label className={`cursor-pointer px-3 py-2 rounded-xl border   md:rounded-full transition-all duration-200 hover:scale-105 
-                                ${accountType === "Institute" ? "bg-blue-300 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
+                                ${accountType === "Institute" ? "bg-blue-400 text-richblack-5 font-medium border-blue-600" : "text-richblack-200 border-black"}`}>
                                     <input
                                         type="radio"
                                         value="Institute"
@@ -86,7 +86,7 @@ const SignUp = ({ toggleLogInForm }) => {
                                 <input
                                     type="text"
                                     {...register("fullName", { required: true })}
-                                    className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 hover:scale-105 duration-200 
+                                    className={`bg-gray-500 w-full rounded-md h-[2rem] px-3 hover:scale-105 duration-200 
                                      ${errors.fullName ? "border-red-500" : ""}`}
                                 />
                                 {errors.fullName && (
@@ -110,7 +110,7 @@ const SignUp = ({ toggleLogInForm }) => {
                                         message: "Invalid email address",
                                     },
                                 })}
-                                className="bg-blue-100 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200" />
+                                className="bg-gray-500 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200" />
                             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                         </div>
 
@@ -121,7 +121,7 @@ const SignUp = ({ toggleLogInForm }) => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     {...register("password", { required: "Password is required" })}
-                                    className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
+                                    className={`bg-gray-500 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
                 ${errors.password ? "border-red-500" : ""}`}
                                 />
                                 <button
@@ -148,7 +148,7 @@ const SignUp = ({ toggleLogInForm }) => {
                                 <input
                                     type={showConfirmPassword ? "text" : "password"}
                                     {...register("confirmPassword", { required: "Confirm Password is required" })}
-                                    className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
+                                    className={`bg-gray-500 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
                 ${errors.confirmPassword ? "border-red-500" : ""}`}
                                 />
                                 <button
@@ -169,7 +169,7 @@ const SignUp = ({ toggleLogInForm }) => {
 
                         {/* Submit Button */}
                         <div className="flex mt-2 justify-center w-[20rem]">
-                            <button type="submit" className="bg-amber-200 px-2 py-2 rounded-[5rem] w-[8rem] hover:scale-95 duration-200 cursor-pointer">SignUp</button>
+                            <button type="submit" className="bg-amber-400  text-black px-2 py-2 rounded-[5rem] w-[8rem] hover:scale-95 duration-200 cursor-pointer">SignUp</button>
                         </div>
                     </form>
                 </div>
@@ -180,10 +180,10 @@ const SignUp = ({ toggleLogInForm }) => {
                         or <span className="text-blue-400 select-none">SignUp with</span>
                     </p>
                     <div className="flex items-center justify-between gap-x-10">
-                        <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
+                        <button className="w-[5rem] h-[3rem] border border-blue-300 bg-white flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
                             <img src={google} alt="Google" className="w-[30%]" />
                         </button>
-                        <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
+                        <button className="w-[5rem] h-[3rem] border border-blue-300 bg-white flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
                             <img src={github} alt="GitHub" className="w-[30%]" />
                         </button>
                     </div>

@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx'
 import EditorPage from './pages/EditorPage.jsx'
 import CreateAndJoinPage from './pages/CreateAndJoinPage.jsx'
 import { Toaster } from 'react-hot-toast'
+import Auth from './pages/Auth.jsx'
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/auth",
+        element: <Auth />
       },
       {
         path: "/create-and-join",
@@ -36,18 +41,18 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
 
-    <Provider store={store}>
+  <Provider store={store}>
 
-      <RouterProvider router={router} />
-      <Toaster position="top-right" reverseOrder={false} toastOptions={
-        {
-          success: {
-            theme: {
-              primary: "green-400"
-            }
+    <RouterProvider router={router} />
+    <Toaster position="top-right" reverseOrder={false} toastOptions={
+      {
+        success: {
+          theme: {
+            primary: "green-400"
           }
         }
-      } />
-    </Provider>
+      }
+    } />
+  </Provider>
 
 )

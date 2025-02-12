@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import google from "../../assets/Auth/google.png";
-import github from "../../assets/Auth/github.png";
+import social from "../../assets/Auth/social.png"
+import github from "../../assets/Auth/github.png"
 import { login } from "../../services/operations/authApi";
 
 const LogIn = ({ toggleLogInForm }) => {
@@ -18,7 +19,7 @@ const LogIn = ({ toggleLogInForm }) => {
     dispatch(login(data));
   };
 
- 
+
   return (
     <div className="flex justify-center items-center h-[40rem] w-[25rem] ">
       <div className=" p-6 rounded-lg flex flex-col gap-y-5 ">
@@ -43,7 +44,7 @@ const LogIn = ({ toggleLogInForm }) => {
                   message: "Invalid email address",
                 },
               })}
-              className="bg-blue-100 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200" />
+              className="bg-gray-500 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200" />
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </div>
 
@@ -55,8 +56,7 @@ const LogIn = ({ toggleLogInForm }) => {
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password", { required: "Password is required" })}
-                className={`bg-blue-100 w-full rounded-md h-[2rem] px-3 pr-10 hover:scale-105 duration-200 
-                         `}
+                className="bg-gray-500 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200"
               />
               <button
                 type="button"
@@ -75,7 +75,7 @@ const LogIn = ({ toggleLogInForm }) => {
 
           {/* Submit Button */}
           <div className="flex mt-2 justify-center w-[20rem]">
-            <button type="submit" className="bg-amber-200 px-2 py-2 rounded-[5rem] w-[8rem] hover:scale-95 duration-200 cursor-pointer">LogIn</button>
+            <button type="submit" className="bg-amber-400 text-black px-2 py-2 rounded-[5rem] w-[8rem] hover:scale-95 duration-200 cursor-pointer">LogIn</button>
           </div>
         </form>
 
@@ -85,11 +85,11 @@ const LogIn = ({ toggleLogInForm }) => {
             or <span className="text-blue-400 select-none">LogIn with</span>
           </p>
           <div className="flex items-center justify-between gap-x-10">
-            <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
+            <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer bg-white">
               <img src={google} alt="Google" className="w-[30%]" />
             </button>
-            <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer">
-              <img src={github} alt="GitHub" className="w-[30%]" />
+            <button className="w-[5rem] h-[3rem] border border-blue-300 flex justify-center items-center rounded-3xl hover:scale-105 duration-200 cursor-pointer text-white bg-white">
+              <img src={github} alt="GitHub" className="w-[30%] text-white" />
             </button>
           </div>
           <p className="text-sm mt-5">

@@ -35,7 +35,7 @@ const Navbar = () => {
                     <div>
                         <button
                             className="hover:scale-110 transition-all duration-300 text-xl cursor-pointer"
-                            onClick={() => dispatch(setModal(true))}
+                            onClick={() => navigate("/auth")}
                         >
                             LogIn
                         </button>
