@@ -19,13 +19,13 @@ const userSchema = Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    userName: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
+    // userName: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    //   lowercase: true,
+    //   trim: true,
+    // },
     avatar: {
       type: String, // Cloudinary Url
     },
@@ -34,7 +34,7 @@ const userSchema = Schema(
       enum: ["Institute", "Student", "Instructor"],
       required: true,
     },
-    refrshToken: {
+    refreshToken: {
       type: String,
       default: null,
     },

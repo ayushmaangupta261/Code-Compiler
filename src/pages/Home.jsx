@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import starBg from "../assets/Home/starBg.png"
 import flyingCat from "../assets/Home/flyingCat.png"
 import globe from "../assets/Home/globe.png"
@@ -9,8 +9,17 @@ import flying_planet from "../assets/Home/flying_planet.png"
 import code from "../assets/Home/code.jpg"
 import { RiLoginCircleLine } from "react-icons/ri";
 
+import { authStatus } from '../services/operations/authApi'
+
 
 const Home = () => {
+
+
+  useEffect(() => {
+    authStatus();
+  }, []);
+
+
   return (
     <div
       className=" w-full h-auto pb-[10rem] bg-center flex flex-col items-center  z-5  text-white"
@@ -96,7 +105,7 @@ const Home = () => {
           </div>
         </div>
 
-      </div> 
+      </div>
 
 
 

@@ -28,13 +28,11 @@ const registerUser = async (req, res, next) => {
 
   try {
     // Extract user details from the frontend
-    const { fullName, email, userName, password, accountType } = req.body;
+    const { fullName, email, password, accountType } = req.body;
 
     // Validate required fields
     if (
-      [fullName, email, userName, password, accountType].some(
-        (field) => !field?.trim()
-      )
+      [fullName, email, password, accountType].some((field) => !field?.trim())
     ) {
       return res.status(400).json({
         message: "All fields are required",
@@ -44,12 +42,12 @@ const registerUser = async (req, res, next) => {
 
     // Check if the user already exists (by userName or email)
     const existedUser = await User.findOne({
-      $or: [{ userName }, { email }],
+      email,
     });
 
     if (existedUser) {
       return res.status(409).json({
-        message: "username or email already exists",
+        message: "User already exists",
         success: false,
       });
     }
@@ -83,7 +81,7 @@ const registerUser = async (req, res, next) => {
       email,
       password,
       accountType,
-      userName: userName.toLowerCase(),
+      // userName: userName.toLowerCase(),
     });
 
     if (!user) {
@@ -143,6 +141,8 @@ const loginUser = async (req, res) => {
     });
   }
 
+  console.log("User -> ", user);
+
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
@@ -156,23 +156,72 @@ const loginUser = async (req, res) => {
     user._id
   );
 
+  console.log("Tokens -> ", accessToken, " ", refreshToken);
+
   const loggedInUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: false,
+    sameSite: "None",
   };
 
-  return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json({
-      user: loggedInUser,
-      success: true,
-    });
+  // return res
+  //   .status(200)
+  //   .cookie("accessToken", accessToken, options)
+  //   .cookie("refreshToken", refreshToken, options)
+  //   .json({
+  //     user: loggedInUser,
+  //     success: true,
+  //   });
+
+  setTimeout(() => {
+    res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        user: user,
+        success: true,
+      });
+  }, 5000); // 5 seconds delay
 };
 
-export { registerUser, loginUser };
+// function to check auth status
+const authStatus = async (req, res) => {
+  try {
+    const { user } = req;
+    console.log("User -> ,", user);
+
+    if (!user) {
+      return res.status(400).json({
+        status: false,
+        message: "User is not loggedin",
+      });
+    }
+
+    const userInDB = await User.findById(user._id);
+
+    if (!userInDB) {
+      return res.status(400).json({
+        status: false,
+        message: "User doesn't exist",
+      });
+    }
+
+    return res.status(200).json({
+      status: true,
+      message: "User Authenticated",
+    });
+  } catch (error) {
+    console.log("Error in auth status ->", error);
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, authStatus };
