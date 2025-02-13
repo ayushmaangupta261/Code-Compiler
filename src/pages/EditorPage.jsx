@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import { useState } from 'react';
-import Client from '../components/Editor/Client';
-import Editor from '../components/Editor/Editor';
+import Client from "../components/Editor/Client.jsx"
+import Editor from '../components/Editor/Editor.jsx';
 
 import { initSocket } from '../services/socket.js';
 import ACTIONS from '../constants/Actions.js';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-;
+
 
 
 const EditorPage = () => {
@@ -114,7 +114,7 @@ const EditorPage = () => {
     }
 
     return (
-        <div className='mainwrap text-gray-100 flex h-[41.6rem] w-full gap-x-3  overflow-hidden pb-2'>
+        <div className='mainwrap text-gray-100 flex h-[39rem] w-full gap-x-3 mt-[4rem] overflow-hidden '>
 
             <div className="aside flex flex-col justify-between bg-gray-700 py-5 px-5 rounded-br-2xl rounded-tr-2xl w-[18rem]">
 

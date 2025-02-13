@@ -31,7 +31,7 @@ function App() {
         <Navbar />
       </div>
 
-      <div className="text-gray-100 flex w-full gap-x-3 mt-[4.5rem] pb-2">
+      <div className="text-gray-100 flex w-full gap-x-3 pt-[2rem] pb-[2rem] h-full">
         <Outlet />
       </div>
 

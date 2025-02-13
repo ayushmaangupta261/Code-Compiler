@@ -18,31 +18,31 @@ const Auth = () => {
 
     console.log("Login form -> ", showLogIn)
     return (
-        <div className='flex justify-between  w-[90%] ml-auto shadow-2xl rounded-3xl '>
-            {/* left */}
-            <div className='flex justify-end'>
-                {/* Conditionally render SignUp or LogIn */}
-                {showLogIn ? <LogIn toggleLogInForm={toggleLogInForm} /> : <SignUp toggleLogInForm={toggleLogInForm} />}
-            </div>
+        <div className='flex overflow-x-hidden xl:justify-between xl:mt-[3rem] w-[90%] :ml-auto shadow-2xl rounded-3xl h-[100vh] '>
+        {/* left */}
+        <div className='flex xl:justify-end'>
+            {/* Conditionally render SignUp or LogIn */}
+            {showLogIn ? <LogIn toggleLogInForm={toggleLogInForm} /> : <SignUp toggleLogInForm={toggleLogInForm} />}
+        </div>
 
-            {/* right */}
-            <div className="relative w-full h-[42rem]">
-                {/* Image */}
-                <img
-                    src={character}
-                    alt="Character"
-                    className="absolute top-0 right-0 w-auto h-full object-cover z-2 "
-                />
+        {/* right */}
+        <div className="relative w-full h-[42rem] hidden xl:block">
+            {/* Image */}
+            <img
+                src={character}
+                alt="Character"
+                className="absolute top-0 right-0 w-auto h-full object-cover z-2 "
+            />
 
-                {/* Background Div */}
-                {/* <div className=" bg-blue-200 w-[50%] h-[99.8%] object-fill absolute top-0 right-0 z-0 rounded-tl-3xl rounded-bl-3xl shadow-xl">
-                </div> */}
+            {/* Background Div */}
+            {/* <div className=" bg-blue-200 w-[50%] h-[99.8%] object-fill absolute top-0 right-0 z-0 rounded-tl-3xl rounded-bl-3xl shadow-xl">
+            </div> */}
 
-               
-
-            </div>
+           
 
         </div>
+
+    </div>
 
     )
 }
