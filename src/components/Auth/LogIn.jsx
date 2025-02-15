@@ -20,11 +20,13 @@ const LogIn = ({ toggleLogInForm }) => {
   const submitForm = (data) => {
     console.log("Log In data -> ", data);
     dispatch(login(data));
+    
+    reset();
   };
 
 
   return (
-    <div className="flex justify-center items-center h-[40rem] w-[25rem] ">
+    <div className="flex justify-center items-center h-[40rem] w-[25rem] mx-auto">
 
       {
         authLoading ?
@@ -75,6 +77,7 @@ const LogIn = ({ toggleLogInForm }) => {
                     {...register("password", { required: "Password is required" })}
                     className="bg-gray-500 w-[20rem] rounded-md h-[2rem] px-1 hover:scale-105 duration-200"
                   />
+
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}

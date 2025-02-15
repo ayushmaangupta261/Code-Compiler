@@ -26,26 +26,25 @@ const SignUp = ({ toggleLogInForm }) => {
         // console.log(data);
         const { confirmPassword, ...userData } = data;
         dispatch(registerUser(userData));
+        
+        reset();
     };
 
 
     return (
-        <div className="flex justify-start h-[40rem] w-[25rem] py-3 px-3 ml-5 ">
+        <div className="flex justify-center items-center h-[40rem] w-[25rem] py-3 px-3 ml-5 ">
             {
                 authLoading ?
-                    (
-                        <div class="card">
-                            <div class="loader">
-                                <div class="words flex flex-col justify-center items-center">
-                                    <span class="word">Authenticating</span>
-                                    <span class="word">Verifying</span>
-                                    <span class="word">Securing</span>
-                                    <span class="word">Processing</span>
-                                    <span class="word">Signing In</span>
-                                </div>
+                    (<div class="card h-[5rem] flex justify-center items-center ">
+                        <div class="loader">
+                            <div class="words ">
+                                <span class="word">Verifying</span>
+                                <span class="word">Processing</span>
+                                <span class="word">Signning Up</span>
+                                <span class="word">Please Wait</span>
                             </div>
                         </div>
-                    )
+                    </div>)
                     :
                     (<div className="flex flex-col">
                         <div className="flex flex-col">

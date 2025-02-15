@@ -1,6 +1,11 @@
 import { apiConnector } from "../apiConnector";
 import { authEnpoint } from "../endPoints/authEndpoints";
-import { setAuthLoading } from "../../redux/slices/authSlice";
+import {
+  setAuthLoading,
+  setUser,
+  setToken,
+} from "../../redux/slices/authSlice";
+import toast from "react-hot-toast";
 
 const { RegisterUser_API, LogInUser_API, AuthStatus_API } = authEnpoint;
 
@@ -30,10 +35,13 @@ export const registerUser = (data) => async (dispatch) => {
 
     dispatch(setAuthLoading(false));
 
+    toast.success("Registration Done Successfully");
+
     return response;
   } catch (error) {
     console.log("Error: ", error);
     dispatch(setAuthLoading(false));
+    toast.error(error.message);
   }
 };
 
@@ -56,25 +64,39 @@ export const login = (data) => async (dispatch) => {
     console.log("Response from login user in authApi -> ", response);
 
     dispatch(setAuthLoading(false));
+    dispatch(setUser(true));
 
-    return response;
+    dispatch(setToken(response.data.user.accessToken));
+
+    toast.success("Logged In successfully");
+
+    // return response;
   } catch (error) {
     console.log("Error: ", error);
     dispatch(setAuthLoading(false));
+    toast.error(error.message);
   }
 };
 
 // auth status
-export const authStatus = async () => {
+export const authStatus = async (token) => {
   try {
     console.log("Auth status check");
 
-    const authResponse = await apiConnector("GET", AuthStatus_API, {});
+    const authResponse = await apiConnector(
+      "GET",
+      AuthStatus_API,
+      {},
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
 
     console.log("Auth Response -> ", authResponse);
 
     return authResponse;
   } catch (error) {
     console.log("Error in auth status -> ", error);
+    toast.response(`${error.response.data.message} , please login`);
   }
 };

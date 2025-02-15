@@ -10,13 +10,18 @@ import code from "../assets/Home/code.jpg"
 import { RiLoginCircleLine } from "react-icons/ri";
 
 import { authStatus } from '../services/operations/authApi'
+import { useSelector } from 'react-redux'
 
 
 const Home = () => {
 
+  const { token } = useSelector((state) => state.auth);
+
+  console.log("Token -> ", token);
+
 
   useEffect(() => {
-    authStatus();
+    authStatus(token);
   }, []);
 
 

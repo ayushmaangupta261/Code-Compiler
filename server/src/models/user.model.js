@@ -21,7 +21,7 @@ const userSchema = Schema(
     },
     // userName: {
     //   type: String,
-    //   required: true,
+    //   // required: true,
     //   unique: true,
     //   lowercase: true,
     //   trim: true,
@@ -35,6 +35,10 @@ const userSchema = Schema(
       required: true,
     },
     refreshToken: {
+      type: String,
+      default: null,
+    },
+    accessToken: {
       type: String,
       default: null,
     },
@@ -63,7 +67,7 @@ userSchema.methods.generateAccessToken = function () {
     {
       _id: this._id,
       email: this.email,
-      username: this.username,
+      // username: this.username,
       fullName: this.fullName,
     },
     process.env.ACCESS_TOKEN_SECRET,

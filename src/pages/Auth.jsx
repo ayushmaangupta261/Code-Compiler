@@ -18,7 +18,7 @@ const Auth = () => {
 
     console.log("Login form -> ", showLogIn)
     return (
-        <div className='flex overflow-x-hidden xl:justify-between xl:mt-[3rem] w-[90%] :ml-auto shadow-2xl rounded-3xl h-[100vh] '>
+        <div className='flex overflow-x-hidden xl:justify-between xl:mt-[3rem] w-[90%] lg:ml-auto shadow-2xl rounded-3xl h-[100vh] '>
         {/* left */}
         <div className='flex xl:justify-end'>
             {/* Conditionally render SignUp or LogIn */}

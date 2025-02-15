@@ -37,7 +37,7 @@ const io = new Server(server, {
     allowedHeaders: ["Authorization", "Content-Type"], // Ensure required headers are allowed
   },
 });
-
+ 
 // Initialize Socket.io event listeners
 initializeSocket(io);
 

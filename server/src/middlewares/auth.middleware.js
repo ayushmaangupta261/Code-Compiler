@@ -1,12 +1,18 @@
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-  try {
+  try { 
+    // console.log("req -> ",req.body); 
+    const authHeader = req.headers["authorization"];
+    console.log("Token -> ",authHeader);
 
-    console.log("Cookie -> ",req)
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
 
-    const { accessToken } = req.cookies; // Get token from cookies
-
+    const accessToken = authHeader.split(" ")[1];
+    
+    console.log("Acess token -> ", accessToken);
 
     if (!accessToken) {
       return res
@@ -16,6 +22,8 @@ const authMiddleware = (req, res, next) => {
 
     // Verify the token
     const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+
+    console.log("Decoded -> ",decoded)
 
     if (!decoded) {
       return res
@@ -34,5 +42,6 @@ const authMiddleware = (req, res, next) => {
       .json({ message: "Authentication failed", isAuthenticated: false });
   }
 };
+
 
 export default authMiddleware;

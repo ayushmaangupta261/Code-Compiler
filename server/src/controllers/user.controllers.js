@@ -11,6 +11,7 @@ const generateAccessAndRefereshTokens = async (userId) => {
     const refreshToken = user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
+    user.accessToken = accessToken;
     await user.save({ validateBeforeSave: false });
 
     return { accessToken, refreshToken };
@@ -22,88 +23,55 @@ const generateAccessAndRefereshTokens = async (userId) => {
   }
 };
 
-
 // Function to register the user
-const registerUser = async (req, res, next) => {
-  console.log("Request body -> ", req.body);
+const registerUser = async (req, res) => {
+  // console.log("Request body -> ", req.body);
 
   try {
-    // Extract user details from the frontend
+    // Extract user details
     const { fullName, email, password, accountType } = req.body;
 
     // Validate required fields
     if (
       [fullName, email, password, accountType].some((field) => !field?.trim())
     ) {
-      return res.status(400).json({
-        message: "All fields are required",
-        success: false,
-      });
+      return res
+        .status(400)
+        .json({ message: "All fields are required", success: false });
     }
 
-    // Check if the user already exists (by userName or email)
-    const existedUser = await User.findOne({
-      email,
-    });
+    // Check if the email already exists
+    const existingUser = await User.findOne({ email });
 
-    if (existedUser) {
+    if (existingUser) {
       return res.status(409).json({
-        message: "User already exists",
+        message: "User with this email already exists",
         success: false,
       });
     }
 
-    // Validate avatar file
-    // const avatarLocalPath = req.files?.avatar?.[0]?.path;
-    // // console.log("avatar local path: ", avatarLocalPath);
-
-    // if (!avatarLocalPath) {
-    //   return res.status(400).json({
-    //     message: "Avatar file is required",
-    //     success: false,
-    //   });
-    // }
-
-    // // Upload avatar to Cloudinary
-    // const avatar = await uploadOnCloudinary(avatarLocalPath);
-    // // console.log("Avatar -> ", avatar);
-
-    // if (!avatar) {
-    //   return res.status(500).json({
-    //     message: "Failed to upload avatar",
-    //     success: false,
-    //   });
-    // }
-
-    // Create user object in the database
+    // Create user in the database
     const user = await User.create({
       fullName,
-      // avatar: avatar.url,
       email,
       password,
       accountType,
-      // userName: userName.toLowerCase(),
     });
 
     if (!user) {
-      return res.status(500).json({
-        message: "Failed to register user",
-        success: false,
-      });
+      return res
+        .status(500)
+        .json({ message: "Failed to register user", success: false });
     }
 
-    // Remove sensitive fields before sending the response
-    const createdUser = user.toObject(); // Convert to plain object
-    delete createdUser.password; // Remove password
-    delete createdUser.refreshToken; // Remove refresh token
+    // Remove sensitive fields
+    const createdUser = user.toObject();
+    delete createdUser.password;
 
-    // Send the response
-    return res.status(201).json({
-      user: createdUser,
-      success: true,
-    });
+    setTimeout(() => {
+      return res.status(201).json({ user: createdUser, success: true });
+    }, 5000);
   } catch (error) {
-    // Handle errors and send a proper response
     console.error("Error in registerUser:", error);
     return res.status(error.statusCode || 500).json({
       message: error.message || "An error occurred during registration",
@@ -163,6 +131,13 @@ const loginUser = async (req, res) => {
     "-password -refreshToken"
   );
 
+  const userObject = loggedInUser.toObject();
+
+  // ✅ Attach accessToken to the response
+  userObject.accessToken = accessToken;
+
+  console.log("Final Response -> ", userObject);
+
   const options = {
     httpOnly: true,
     secure: false,
@@ -184,7 +159,7 @@ const loginUser = async (req, res) => {
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
       .json({
-        user: user,
+        user: userObject,
         success: true,
       });
   }, 5000); // 5 seconds delay
@@ -194,7 +169,7 @@ const loginUser = async (req, res) => {
 const authStatus = async (req, res) => {
   try {
     const { user } = req;
-    console.log("User -> ,", user);
+    // console.log("User -> ,", user);
 
     if (!user) {
       return res.status(400).json({

@@ -6,7 +6,6 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
 
-
 // Get the root directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,12 +16,14 @@ dotenv.config({
 
 const app = express();
 
-// console.log(process.env.CORS_ORIGIN);
+console.log(process.env.CORS_ORIGIN);
 
 app.use(
   cors({
     origin:"http://localhost:3000",
+    // origin: process.env.CORS_ORIGIN,
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
