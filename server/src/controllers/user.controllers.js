@@ -24,7 +24,11 @@ const generateAccessAndRefereshTokens = async (userId) => {
 };
 
 // Function to register the user
+<<<<<<< HEAD
 const registerUser = async (req, res) => {
+=======
+const registerUser = async (req, res, next) => {
+>>>>>>> 1a9063920e83f5ceef54090be15a2de7f0ae3e72
   // console.log("Request body -> ", req.body);
 
   try {
