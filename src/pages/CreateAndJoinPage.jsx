@@ -48,9 +48,9 @@ const CreateAndJoinPage = () => {
 
 
     return (
-        <div className='CreateAndJoinPageWrapper flex items-center justify-center text-gray-100 h-screen w-[100vw]'>
+        <div className='CreateAndJoinPageWrapper flex items-center justify-center text-gray-100 h-screen  w-[100vw]'>
 
-            <div className='formWapper bg-[#282a36] px-5 py-5 rounded-md w-[400px] max-w-[90%]'>
+            <div className='formWapper  bg-[#282a36] px-5 py-5 rounded-md w-[400px] max-w-[90%] -mt-[4rem] '>
                 {/* <p className='text-3xl text-green-400'>Code-Sync</p> */}
                 <p className='mainLabel mt-5 mb-5'>Paste your room id</p>
                 <div className='flex flex-col gap-y-2'>
@@ -61,14 +61,14 @@ const CreateAndJoinPage = () => {
                     >
                         Join
                     </button>
-                    <span className='createInfo text-center'>
+                    <span className='createInfo text-center '>
                         If you don't have an invite then create &nbsp;
                         <a onClick={createNewRoom} className='createNewBtn cursor-pointer text-green-400 border-b border-green-400 hover:text-blue-500 hover:border-blue-500 duration-200'>new room</a>
                     </span>
                 </div>
             </div>
 
-            <footer className='fixed bottom-5'>
+            <footer className=' hidden lg:block lg:fixed lg:bottom-5'>
                 <p>Made with ❤️ by <span className='text-green-400 cursor-pointer'>Ayushmaan Gupta</span></p>
             </footer>
 

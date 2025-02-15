@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button.jsx";
-import HighlightText from "./HighlightText";
+import HighlightText from "./HighlightText.jsx";
 import { FaArrowRight } from "react-icons/fa";
 import { TypeAnimation } from "react-type-animation";
 
