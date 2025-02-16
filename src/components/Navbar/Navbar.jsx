@@ -5,18 +5,21 @@ import { setModal } from "../../redux/slices/authSlice";
 import { setUser } from "../../redux/slices/authSlice";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { login } from "../../services/operations/authApi";
+import { logout } from "../../services/operations/authApi";
 
 const Navbar = () => {
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    console.log("User in navbar -> ", user);
+    // console.log("User in navbar -> ", user);
 
 
-    const logOut = () => {
-        dispatch(setUser(false));
-        toast.success("Log-Out Successfully");
-    }
+
+    const handleLogOut = () => {
+        dispatch(logout(navigate));
+    };
 
 
     return (
@@ -46,13 +49,13 @@ const Navbar = () => {
                         }
                         {
                             user && (
-                                <button className="text-lg hover:scale-110 transition-all duration-300" onClick={() => logOut()}>Log Out</button>
+                                <button className="text-lg hover:scale-110 transition-all duration-300" onClick={handleLogOut}>Log Out</button>
                             )
                         }
 
                     </div>
 
-                    <p className="text-lg hover:scale-110 transition-all duration-300">Profile</p>
+                    <button className="text-lg hover:scale-110 transition-all duration-300" onClick={() => navigate("/dashboard")}>Dashboard</button>
                 </div>
             </div>
 
@@ -72,7 +75,7 @@ const Navbar = () => {
                     }
                     {
                         user && (
-                            <button className="text-lg hover:scale-110 transition-all duration-300" onClick={() => logOut()}>Log Out</button>
+                            <button className="text-lg hover:scale-110 transition-all duration-300" onClick={handleLogOut}>Log Out</button>
                         )
                     }
 

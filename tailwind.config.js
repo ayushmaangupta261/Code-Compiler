@@ -1,7 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    theme: {
+// tailwind.config.js
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         "edu-sa": ["Edu SA Beginner", "cursive"],
@@ -10,7 +11,7 @@ export default {
       colors: {
         white: "#fff",
         black: "#000",
-        transparent: "#ffffff000",
+        transparent: "#ffffff00", // Corrected the transparency value
         richblack: {
           5: "#F1F2FF",
           25: "#DBDDEA",
@@ -123,13 +124,11 @@ export default {
           900: "#141414",
         },
       },
-      extend: {
-        maxWidth: {
-          maxContent: "1260px",
-          maxContentTab: "650px",
-        },
+      maxWidth: {
+        maxContent: "1260px",
+        maxContentTab: "650px",
       },
     },
-    plugins: [],
-  };
-  
+  },
+  plugins: [],
+};

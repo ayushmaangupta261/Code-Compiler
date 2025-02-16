@@ -3,7 +3,7 @@ import { authEnpoint } from "../endPoints/authEndpoints";
 import {
   setAuthLoading,
   setUser,
-  setToken,
+  // setToken,
 } from "../../redux/slices/authSlice";
 import toast from "react-hot-toast";
 
@@ -46,7 +46,7 @@ export const registerUser = (data) => async (dispatch) => {
 };
 
 // login user
-export const login = (data) => async (dispatch) => {
+export const login = (data, navigate) => async (dispatch) => {
   dispatch(setAuthLoading(true));
   try {
     console.log("Data in login api -> ", data);
@@ -63,18 +63,44 @@ export const login = (data) => async (dispatch) => {
 
     console.log("Response from login user in authApi -> ", response);
 
-    dispatch(setAuthLoading(false));
-    dispatch(setUser(true));
+    if(!response.data.success){
+      throw new Error("Error in log in");
+    }
 
-    dispatch(setToken(response.data.user.accessToken));
+    // dispatch(setAuthLoading(false));
+    dispatch(setUser(response?.data?.user));
+
+    // dispatch(setToken(response.data.user.accessToken));
 
     toast.success("Logged In successfully");
+
+    navigate("/dashboard/user-details");
 
     // return response;
   } catch (error) {
     console.log("Error: ", error);
     dispatch(setAuthLoading(false));
     toast.error(error.message);
+  }
+};
+
+// log out user
+export const logout = (navigate) => (dispatch) => {
+  try {
+    // Clear authentication state
+    // dispatch(setToken(null));
+    dispatch(setUser(false));
+
+    // localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // Provide feedback
+    toast.success("Logged out successfully");
+
+    // Navigate to home page
+    navigate("/");
+  } catch (error) {
+    console.error("Error during logout:", error);
   }
 };
 

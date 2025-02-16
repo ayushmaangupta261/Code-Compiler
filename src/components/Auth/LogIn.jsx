@@ -6,11 +6,13 @@ import google from "../../assets/Auth/google.png";
 import social from "../../assets/Auth/social.png"
 import github from "../../assets/Auth/github.png"
 import { login } from "../../services/operations/authApi";
+import { useNavigate } from "react-router";
 
 const LogIn = ({ toggleLogInForm }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { authLoading } = useSelector((state) => state.auth);
 
@@ -19,8 +21,8 @@ const LogIn = ({ toggleLogInForm }) => {
 
   const submitForm = (data) => {
     console.log("Log In data -> ", data);
-    dispatch(login(data));
-    
+    dispatch(login(data, navigate));
+
     reset();
   };
 
