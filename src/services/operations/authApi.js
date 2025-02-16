@@ -63,7 +63,7 @@ export const login = (data, navigate) => async (dispatch) => {
 
     console.log("Response from login user in authApi -> ", response);
 
-    if(!response.data.success){
+    if (!response.data.success) {
       throw new Error("Error in log in");
     }
 
@@ -74,7 +74,9 @@ export const login = (data, navigate) => async (dispatch) => {
 
     toast.success("Logged In successfully");
 
-    navigate("/dashboard/user-details");
+    navigate("/dashboard");
+
+    dispatch(setAuthLoading(false));
 
     // return response;
   } catch (error) {
@@ -89,7 +91,7 @@ export const logout = (navigate) => (dispatch) => {
   try {
     // Clear authentication state
     // dispatch(setToken(null));
-    dispatch(setUser(false));
+    dispatch(setUser(null));
 
     // localStorage.removeItem("token");
     localStorage.removeItem("user");

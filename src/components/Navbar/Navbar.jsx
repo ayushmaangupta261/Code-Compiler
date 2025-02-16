@@ -55,7 +55,13 @@ const Navbar = () => {
 
                     </div>
 
-                    <button className="text-lg hover:scale-110 transition-all duration-300" onClick={() => navigate("/dashboard")}>Dashboard</button>
+                    {
+                        user && (
+                            <button className="text-lg hover:scale-110 transition-all duration-300" onClick={() => navigate("/dashboard")}>Dashboard</button>
+                        )
+                    }
+
+
                 </div>
             </div>
 

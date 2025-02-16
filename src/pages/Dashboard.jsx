@@ -12,7 +12,7 @@ const Dashboard = () => {
 
 
     return (
-        <div className='h-[80.5vh] w-[90%] mx-auto mt-[5rem]  flex '>
+        <div className='h-[80.5vh] w-[90%] mx-auto mt-[5rem]  flex gap-x-3 '>
             {/* sidebar */}
             <div className='w-[15%]  h-full px-3 py-3 flex flex-col items-start gap-y-6 bg-gray-800 rounded-xl'>
                 {/* top */}
@@ -30,7 +30,7 @@ const Dashboard = () => {
             </div>
 
             {/* Dashboard */}
-            <div className='w-[85%]  h-full'>
+            <div className='w-[85%] h-full bg-gray-700 rounded-xl'>
                 <Outlet />
             </div>
         </div>
