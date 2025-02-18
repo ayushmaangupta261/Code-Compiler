@@ -46,7 +46,7 @@ export const DashboardLinks =[
     {
         id:7,
         name:"Jobs Applies",
-        path:"/dashboard/jobs-applies",
+        path:"/dashboard/job-applies",
         type:ACCOUNT_TYPE.STUDENT,
         // icon:"VscHistory"
     },

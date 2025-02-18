@@ -30,7 +30,7 @@ const Dashboard = () => {
             </div>
 
             {/* Dashboard */}
-            <div className='w-[85%] h-full bg-gray-700 rounded-xl'>
+            <div className='w-[85%] h-full bg-[#282a36] rounded-xl'>
                 <Outlet />
             </div>
         </div>

@@ -14,6 +14,13 @@ import Dashboard from './pages/Dashboard.jsx'
 import ProtectedRoute from './components/Auth/ProtectedRoute.jsx'
 import Projects from './components/Dashboard/DashboardComponent/Projects.jsx'
 import { Overview } from './components/Dashboard/DashboardComponent/Overview.jsx'
+import { Assignment } from './components/Dashboard/DashboardComponent/Assignment.jsx'
+import DailySchedule from './components/Dashboard/DashboardComponent/DailySchedule.jsx'
+import JobApplies from './components/Dashboard/DashboardComponent/JobApplies.jsx'
+import Jobs from './components/Dashboard/DashboardComponent/Jobs.jsx'
+import { JobUpdates } from './components/Dashboard/DashboardComponent/JobUpdates.jsx'
+import Settings from './components/Dashboard/DashboardComponent/Settings.jsx'
+import Notification from './components/Dashboard/DashboardComponent/Notification.jsx'
 
 
 const router = createBrowserRouter([
@@ -46,10 +53,37 @@ const router = createBrowserRouter([
             element: <Overview />,
           },
           {
+            path: "/dashboard/assignments",
+            element: <Assignment />,
+          },
+          {
+            path: "/dashboard/daily-schedule",
+            element: <DailySchedule />,
+          },
+          {
+            path: "/dashboard/job-applies",
+            element: <JobApplies />,
+          },
+          {
+            path: "/dashboard/jobs",
+            element: <Jobs />,
+          },
+          {
+            path: "/dashboard/job-updates",
+            element: <JobUpdates />,
+          },
+          {
+            path: "/dashboard/notification",
+            element: <Notification />,
+          },
+          {
             path: "/dashboard/projects",
             element: <Projects />,
           },
-
+          {
+            path: "/dashboard/settings",
+            element: <Settings />,
+          },
         ],
       }
     ],

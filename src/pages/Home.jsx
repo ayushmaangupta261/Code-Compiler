@@ -15,13 +15,13 @@ import { useSelector } from 'react-redux'
 
 const Home = () => {
 
-  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
-  console.log("Token -> ", token);
+  console.log("Token -> ", user);
 
 
   useEffect(() => {
-    authStatus(token);
+    authStatus(user.accessToken);
   }, []);
 
 
